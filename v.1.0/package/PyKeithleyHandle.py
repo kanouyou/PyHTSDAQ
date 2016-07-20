@@ -4,9 +4,9 @@
 import visa
 import time
 
-## base class to handle the keithley voltage meter
+## base class to connect the device with gpib
 #
-class PyVoltageMeterBase:
+class PyGpibConnection:
 
     ## constructor
     def __init__(self):
@@ -27,10 +27,17 @@ class PyVoltageMeterBase:
         r = self.fIst.read()
         return r
 
+
+class PyKeithley(PyGpibConnection):
+
+    ## constructor
+    def __init__(self):
+        PyGpibConnection.__init__(self)
+
     ## read data from instrument
     def Read(self):
         w = self.fIst.write(":sense:data:fresh?")
         r = self.fIst.read()
         return float(r)
 
-    
+
